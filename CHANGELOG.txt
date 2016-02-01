@@ -1,0 +1,6 @@
+1.2 - Upgrade accordion script
+1.1	- Add Boxed Layout Mode
+1.0 - Add MCL Installer
+0.9.4 - Fix the light-color on presets
+0.9.3 - Fix the color propagation of colors on ccm-ui
+0.9.2 - Fix page-list force issue when they are no pages - Add CHANGELOG.txt

@@ -6,6 +6,9 @@ use Loader;
 use \Concrete\Core\Backup\ContentImporter as ContentImporter;
 use Concrete\Package\CsvAttribute\Src\Helper\AttributeTranslation;
 use \Concrete\Core\Attribute\Key\Key as AttributeKey;
+use \Concrete\Core\Attribute\Key\CollectionKey as CollectionAttributeKey;
+use \Concrete\Core\Attribute\Key\UserKey as UserAttributeKey;
+use \Concrete\Core\Attribute\Key\FileKey as FileAttributeKey;
 use \Concrete\Core\Attribute\Key\Category as AttributeKeyCategory;
 use \Concrete\Core\Attribute\Type as AttributeType;
 use \Concrete\Core\Http\Service\Json;
@@ -16,7 +19,7 @@ class Controller extends \Concrete\Core\Package\Package {
 
     protected $pkgHandle = 'tutorial_database_table_attribute';
     protected $appVersionRequired = '5.7.0.4';
-    protected $pkgVersion = '0.0.10';
+    protected $pkgVersion = '0.0.11';
     protected $pkg;
 
     public function getPackageDescription() {
@@ -66,6 +69,36 @@ class Controller extends \Concrete\Core\Package\Package {
             $fakc = AttributeKeyCategory::getByHandle('file');
             $fakc->associateAttributeKeyType($dbTableDemoAT);
         }
+        $this->addPageAttributeKeys($pkg);
+        $this->addUserAttributeKeys($pkg);
+        $this->addFileAttributeKeys($pkg);
+    }
+
+    private function addPageAttributeKeys($pkg){
+        CollectionAttributeKey::add(
+            'db_table_demo',
+            array(
+                'akHandle' => 'db_table_demo',
+                'akName' => t('Database Table Tutorial Demo'),
+                'akIsSearchable' => true), $pkg);
+    }
+
+    private function addUserAttributeKeys($pkg){
+        UserAttributeKey::add(
+            'db_table_demo',
+            array(
+                'akHandle' => 'db_table_demo',
+                'akName' => t('Database Table Tutorial Demo'),
+                'akIsSearchable' => true), $pkg);
+    }
+
+    private function addFileAttributeKeys($pkg){
+        FileAttributeKey::add(
+            'db_table_demo',
+            array(
+                'akHandle' => 'db_table_demo',
+                'akName' => t('Database Table Tutorial Demo'),
+                'akIsSearchable' => true), $pkg);
     }
     
     private function installSampleData($pkg){
@@ -95,5 +128,5 @@ class Controller extends \Concrete\Core\Package\Package {
         $db = \Database::get();
         $db->query("truncate table TutorialDbTableDemoAttribute");
     }
-    
+
 }

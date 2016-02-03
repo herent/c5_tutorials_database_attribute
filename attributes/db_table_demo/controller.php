@@ -57,4 +57,25 @@ class Controller extends NumberAttributeTypeController {
         return $this->validateForm($p);
     }
 
+    public function getDisplayValue() {
+        $db = \Database::get();
+        $q = "select * from TutorialDbTableDemoAttribute where keyID = ?";
+        $row = $db->getRow($q, array($this->getValue()));
+        $json = new Json();
+        $jsonData = $json->decode($row['data']);
+        ob_start();?>
+<h4><?= $row['displayTitle'];?></h4>
+<dl>
+    <?php foreach($jsonData as $handle => $value){?>
+    <dt><?= $handle;?></dt>
+    <dd><?= $value;?></dd>
+    <?php } ?>
+</dl>
+        <?php return ob_get_clean();
+
+    }
+
+    public function getDisplayValueSanitized() {
+        return $this->getDisplayValue();
+    }
 }

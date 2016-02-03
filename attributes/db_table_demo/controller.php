@@ -1,11 +1,14 @@
 <?php
 
-namespace Concrete\Package\DatabaseTableAttribute\Attribute\DbTableDemoA;
+namespace Concrete\Package\TutorialDatabaseTableAttribute\Attribute\DbTableDemo;
 
 use Loader;
 use \Concrete\Core\Foundation\Object;
 use \Concrete\Core\Attribute\Controller as AttributeTypeController;
 use \Concrete\Attribute\Number\Controller as NumberAttributeTypeController;
+use \Concrete\Core\Http\Service\Json;
+
+defined('C5_EXECUTE') or die('Access Denied.');
 
 class Controller extends NumberAttributeTypeController {
     
@@ -27,7 +30,7 @@ class Controller extends NumberAttributeTypeController {
             $value = $this->getAttributeValue()->getValue();
         }
         $db = \Database::get();
-        $q = "select keyID, displayTitle from DatabaseTableDemoAttributeData orderBy displayTitle asc";
+        $q = "select keyID, displayTitle from TutorialDbTableDemoAttribute order by displayTitle asc";
         $vals = $db->query($q);
         $selectMenuOptions = array();
         $selectMenuOptions[0] = "-- Choose --";
@@ -43,7 +46,7 @@ class Controller extends NumberAttributeTypeController {
 
     public function validateForm($p) {
         $db = \Database::get();
-        $q = "select keyID from DatabaseTableDemoAttributeData where keyID = ?";
+        $q = "select keyID from TutorialDbTableDemoAttribute where keyID = ?";
         $keyID = $db->getOne($q, array($p['value']));
         return intval($keyID) > 0 != false;
     }
